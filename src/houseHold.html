@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../weui.min.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <script type="text/javascript" src="../zepto.min.js"></script>
+    <script type="text/javascript" src="../smartform.js"></script>
+</head>
+<body>
+<div class="page"></div>
+<script type="text/javascript">
+    var data = getData();
+    var meta = getMeta();
+
+    function getMeta() {
+        //数据源
+        var meta = [{
+            type: 'input',
+            name: 'holdCode',
+            label: '户编码',
+            placeholder: '请输入户编码',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'memberCode',
+            label: '成员编码',
+            placeholder: '请输入成员编码',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'name',
+            label: '姓名',
+            placeholder: '请输入姓名',
+            value: '',
+            required: true
+        }, {
+            type: 'radio',
+            name: 'sex',
+            title: '性别',
+            options: [{
+                label: '男',
+                value: 0
+            }, {
+                label: '女',
+                value: 1
+            }],
+        }, {
+            type: 'select',
+            name: 'mingZu',
+            label: '民族',
+            options: [{
+                label: '篮球',
+                value: 0
+            }, {
+                label: '足球',
+                value: 1
+            }, {
+                label: '网球',
+                value: 2
+            }]
+        }, {
+            type: 'input',
+            name: 'idCardCode',
+            label: '公民身份证号',
+            value: '',
+            required: true
+        }, {
+            type: 'select',
+            name: 'relative',
+            label: '与户主关系',
+            options: [{
+                label: '本人',
+                value: 0
+            }, {
+                label: '足球',
+                value: 1
+            }, {
+                label: '网球',
+                value: 2
+            }],
+        }, {
+            type: 'input',
+            name: 'landArea',
+            label: '土地确权面积(亩）',
+            placeholder: '请输入土地确权面积(亩）',
+            value: '',
+            required: true
+        }, {
+            type: 'radio',
+            name: 'isPoor',
+            title: '是否贫困户',
+            options: [{
+                label: '是',
+                value: 0
+            }, {
+                label: '否',
+                value: 1
+            }],
+        }, {
+            type: 'button',
+            title: '确定'
+        }];
+        return meta;
+    }
+
+    function getData() {
+        var data = [{}];
+        return data;
+    }
+
+    if (meta && data) {
+        function setValue(name, value) {
+            meta.forEach(function (item, index) {
+                if (item.name === name) {
+                    item.value = value;
+                }
+            });
+        }
+
+        data.forEach(function (dataItem, index) {
+            setValue(dataItem.name, dataItem.value);
+        });
+
+        var smartForm = new SmartForm(meta);
+        setTimeout(function () {
+            smartForm.button.on('click', function () {
+                console.log(smartForm.validate());
+                console.log(smartForm.getValue());
+                var content = JSON.stringify(smartForm.getValue());
+                console.log(content);
+                console.log(JSON.parse(content));
+            });
+        });
+    }
+
+</script>
+</body>
+
+</html>

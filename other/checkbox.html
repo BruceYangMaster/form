@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./weui.min.css" />
+	<link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+	<div class="page">
+
+    <button id="button">获取</button>
+	</div>
+	<script type="text/javascript" src="./zepto.min.js"></script>
+	<script type="text/javascript" src="./smartform.js"></script>
+	<script type="text/javascript">
+
+	 function uuid () {
+		 return Math.random().toString(36).substring(3, 8);
+	 }
+
+	 function Checkbox (checkbox) {
+		 var _this = this;
+		 this.wrapper = $('<div class=\'weui-cells__title\'>' + checkbox.title + '</div><div class=\'weui-cells weui-cells_checkbox\'></div>');
+     this.labels = (function(){
+       var labelsArr = [];
+			 checkbox.options.forEach(function(item, index){
+			 	 var labelId = uuid();
+				 var wrapper = $('<label class=\'weui-cell weui-check__label\' for=\'' + labelId + '\'></label>');
+         var input = $('<input type=\'checkbox\' class=\'weui-check\' name=\'' + checkbox.name + '\' value=\'' + item.value + '\' id=\'' + labelId + '\' ><i class=\'weui-icon-checked\'></i>')
+         var hd = $('<div class=\'weui-cell__hd\'></div>').append(input);
+         var bd = $('<div class=\'weui-cell__bd\'><p>' + item.label + '</p></div>');
+				 labelsArr.push(wrapper.append(hd).append(bd));
+			 });
+       return labelsArr;
+     })();
+		 this.dom = (function(){
+			var dom = _this.wrapper;
+			_this.labels.forEach(function(item){
+				$(dom[1]).append(item);
+			});
+			return dom;
+		 })();
+		 this.getValue = function () {
+       let arr = [];
+       $('input[name=' + checkbox.name +']:checked').each(function(index, item){
+         arr.push(item.getAttribute('value'));
+       });
+       return arr;
+		 }
+	 }
+
+	 var param = {
+		 name: 'hobby',
+		 title: '爱好',
+		 options: [{
+			 label: '篮球',
+			 value: 0
+		 }, {
+			 label: '足球',
+			 value: 1
+		 }, {
+			 label: '网球',
+			 value: 2
+		 }]
+	 };
+
+	 var checkbox = new Checkbox(param);
+	 $('.page').append(checkbox.dom);
+
+   $('#button').bind('click', function(){
+    console.log(checkbox.getValue());
+   });
+	</script>
+</body>
+
+</html>

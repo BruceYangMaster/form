@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../weui.min.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <link rel="stylesheet" href="../my-index.css"/>
+    <script type="text/javascript" src="../zepto.min.js"></script>
+    <script type="text/javascript" src="../smartform.js"></script>
+</head>
+<body>
+<div class="page"></div>
+<div class="my-bottom">
+    <button class="get-btn weui-btn  weui-btn_primary">按钮</button>
+</div>
+
+<script type="text/javascript">
+    var data = getData();
+    var meta = getMeta();
+
+    function getMeta() {
+        //数据源
+        var meta = [{
+            type: 'pageHead',
+            title: '动态表单',
+            desc: '演示文档'
+        }, {
+            type: 'dateTime',
+            name: 'time',
+            label: '时间日期',
+            placeholder: '请输入',
+            required: true
+        }, {
+            type: 'date',
+            name: 'birthday',
+            label: '生日',
+            placeholder: '请输入生日',
+            required: true
+        }, {
+            type: 'input',
+            name: 'info',
+            label: 'QQ号',
+            placeholder: '请输入',
+            required: true
+        }, {
+            type: 'select',
+            name: 'county',
+            label: '国家',
+            options: [{
+                value: 1,
+                label: '中国'
+            }, {
+                value: 2,
+                label: '美国'
+            }]
+        }, {
+            type: 'radio',
+            name: 'sex',
+            title: '性别',
+            value: 1,
+            options: [{
+                label: '女',
+                value: 0
+            }, {
+                label: '男',
+                value: 1
+            }]
+        }, {
+            type: 'checkbox',
+            name: 'hobby',
+            title: '爱好',
+            value: [],
+            options: [{
+                label: '篮球',
+                value: 0
+            }, {
+                label: '足球',
+                value: 1
+            }, {
+                label: '网球',
+                value: 2
+            }]
+        }, {
+            type: 'input',
+            name: 'name',
+            label: '姓名',
+            placeholder: '请输入姓名',
+            value: '123123',
+            required: true
+        }
+//    , {
+//        type: 'button',
+//        title: '确定'
+//    }
+        ];
+        return meta;
+    }
+
+    function getData() {
+        var data = [{
+            name: 'time',
+            value: '2017-05-31T12:22'
+        }, {
+            name: 'birthday',
+            value: '2017-05-31'
+        }, {
+            name: 'info',
+            value: '65498590'
+        }, {
+            name: 'country',
+            value: 2
+        }, {
+            name: 'sex',
+            value: 1
+        }, {
+            name: 'hobby',
+            value: [0, 1]
+        }];
+        return data;
+    }
+
+    if (meta && data) {
+        function setValue(name, value) {
+            meta.forEach(function (item, index) {
+                if (item.name === name) {
+                    item.value = value;
+                }
+            });
+        }
+
+        data.forEach(function (dataItem, index) {
+            setValue(dataItem.name, dataItem.value);
+        });
+
+        var smartForm = new SmartForm(meta);
+        setTimeout(function () {
+            $(".get-btn").click(function () {
+
+                console.log(smartForm.validate());
+                console.log(smartForm.getValue());
+                var array = smartForm.getValue();
+                var content = JSON.stringify(array);
+                console.log(">>   " + content);
+                var content2 = JSON.parse(content);
+                console.log("<<" + typeof content2);
+            });
+//         smartForm.button.on('click', function () {
+//             console.log(smartForm.validate());
+//             console.log(smartForm.getValue());
+//         });
+        });
+    }
+
+</script>
+</body>
+
+</html>

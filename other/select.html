@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./weui.min.css" />
+	<link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+	<div class="page">
+		<div class="weui-cells"></div>
+
+	</div>
+	<script type="text/javascript" src="./zepto.min.js"></script>
+	<script type="text/javascript" src="./smartform.js"></script>
+	<script type="text/javascript">
+
+  function Select(select) {
+    this.wrapper = $('<div class=\'weui-cell weui-cell_select weui-cell_select-after\'></div>');
+    this.hd = $('<div class=\'weui-cell__hd\'><label class=\'weui-label\'>' + select.label +'</label></div>');
+    this.bdWrapper = $('<div class=\'weui-cell__bd\'></div>');
+    this.select = (function () {
+      var selectDom = $('<select class=\'weui-select\' name=\'' + select.name +'\'></select>');
+      select.options.forEach(function(item, index){
+         selectDom.append('<option value=\'' + item.value +'\'>' + item.label + '</option>');
+      });
+      return selectDom;
+    })();
+    this.bd = this.bdWrapper.append(this.select);
+    this.dom = this.wrapper.append(this.hd).append(this.bd);
+    this.getValue = function() {
+      return this.select.val();
+    }
+  }
+
+  var select = new Select({
+    name: 'county',
+    label: '国家',
+    options: [{
+      value: 1,
+      label: '中国'
+    }, {
+      value: 2,
+      label: '美国'
+    }]
+  });
+  $('.weui-cells').append(select.dom);
+	</script>
+</body>
+
+</html>
