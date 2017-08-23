@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>建筑物采集</title>
+    <link rel="stylesheet" href="../weui.min.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <script type="text/javascript" src="../zepto.min.js"></script>
+    <script type="text/javascript" src="../smartform.js"></script>
+</head>
+<body>
+<div class="page"></div>
+<script type="text/javascript">
+    var data = getData();
+    var meta = getMeta();
+
+    //aa
+    function getMeta() {
+        //数据源
+        var meta = [{
+            type: 'input',
+            name: 'selfEmployedHostName',
+            label: '个体经营户主名称',
+            placeholder: '请输入个体经营户主名称',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'selfEmployedName',
+            label: '个体经营户名称',
+            placeholder: '请输入个体经营户名称',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'mangerArea',
+            label: '营业面积（平方米）',
+            placeholder: '请输入营业面积',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'industryCateGoryCode',
+            label: '行业代码',
+            placeholder: '请输入行业代码',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'mainBusiness',
+            label: '主营业务活动（或主营产品）',
+            placeholder: '请输入主营业务活动',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'incomeOfYear',
+            label: '全年营业收入（千元）',
+            placeholder: '请输入全年营业收入',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'telephone',
+            label: '联系电话',
+            placeholder: '请输入联系电话',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'mangerAddress',
+            label: '经营地址(街、村门牌号）',
+            placeholder: '请输入经营地址(街、村门牌号）',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'taxOfYear',
+            label: '全年缴纳的各种税费（元）',
+            placeholder: '请输入全年缴纳的各种税费',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'incomePerson',
+            label: '人均工资（元）',
+            placeholder: '请输入人均工资',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'employedSum',
+            label: '期末用工人数（人）',
+            placeholder: '请输入期末用工人数',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'womanSum',
+            label: '其中：女性（人）',
+            placeholder: '请输入女性人数',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'waterPayOfYear',
+            label: '年缴水费（元）',
+            placeholder: '请输入年缴水费',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'powerPayOfYear',
+            label: '年缴电费（元）',
+            placeholder: '请输入年缴电费（元）',
+            value: '',
+            required: true
+        }, {
+            type: 'input',
+            name: 'yearRoomCharge',
+            label: '年租房佣金（千元）',
+            placeholder: '请输入年租房佣金',
+            value: '',
+            required: true
+        }, {
+            type: 'radio',
+            name: 'orNetWorkSale',
+            title: '是否互联网销售或采购商品和服务',
+            value: 0,
+            options: [{
+                label: '是',
+                value: 1
+            }, {
+                label: '否',
+                value: 0
+            }]
+        }, {
+            type: 'radio',
+            name: 'orTaxRegisterCard',
+            title: '是否办理税务登记证',
+            value: 0,
+            options: [{
+                label: '是',
+                value: 1
+            }, {
+                label: '否',
+                value: 0
+            }]
+        }, {
+            type: 'radio',
+            name: 'sex',
+            title: '有无营业执照',
+            value: 0,
+            options: [{
+                label: '有',
+                value: 1
+            }, {
+                label: '无',
+                value: 0
+            }]
+        }, {
+            type: 'button',
+            title: '确定'
+        }];
+        return meta;
+    }
+
+    function getData() {
+        var data = [{}];
+        return data;
+    }
+
+    if (meta && data) {
+        function setValue(name, value) {
+            meta.forEach(function (item, index) {
+                if (item.name === name) {
+                    item.value = value;
+                }
+            });
+        }
+
+        data.forEach(function (dataItem, index) {
+            setValue(dataItem.name, dataItem.value);
+        });
+
+        var smartForm = new SmartForm(meta);
+        setTimeout(function () {
+            smartForm.button.on('click', function () {
+                console.log(smartForm.validate());
+                console.log(smartForm.getValue());
+                var content = JSON.stringify(smartForm.getValue());
+                console.log(content);
+                console.log(JSON.parse(content));
+            });
+        });
+    }
+
+</script>
+</body>
+
+</html>
